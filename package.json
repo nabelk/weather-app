@@ -1,0 +1,35 @@
+{
+    "name": "weather-app",
+    "version": "1.0.0",
+    "description": "",
+    "private": true,
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nabelk/weather-app.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/nabelk/weather-app/issues"
+    },
+    "homepage": "https://github.com/nabelk/weather-app#readme",
+    "devDependencies": {
+        "@babel/core": "^7.21.0",
+        "@babel/preset-env": "^7.20.2",
+        "babel-loader": "^9.1.2",
+        "eslint": "^8.35.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^8.7.0",
+        "eslint-plugin-import": "^2.27.5",
+        "webpack": "^5.75.0",
+        "webpack-cli": "^5.0.1"
+    },
+    "dependencies": {
+        "lodash": "^4.17.21"
+    },
+    "main": "webpack.config.js"
+}
