@@ -1,14 +1,25 @@
+import { format } from 'date-fns';
+
 export default function FetchApi() {
     function getCurrentTimeInTimezone(timezoneOffset) {
         const now = new Date();
         const utcTimestamp = now.getTime() + now.getTimezoneOffset() * 60000;
         const timezoneTimestamp = utcTimestamp + timezoneOffset * 3600000;
         const timezoneDate = new Date(timezoneTimestamp);
-        const getHour = timezoneDate.getHours();
-        const ampm = getHour >= 12 ? 'PM ' : 'AM';
-        return `${
-            timezoneDate.getMonth() + 1
-        }/${timezoneDate.getDate()}/${timezoneDate.getFullYear()}, ${getHour}:${timezoneDate.getMinutes()} ${ampm}`;
+        const date = format(
+            new Date(
+                `${timezoneDate.getFullYear()}-${
+                    timezoneDate.getMonth() + 1
+                }-${timezoneDate.getDate()}`
+            ),
+            'd MMMM yyyy'
+        );
+        let hour = timezoneDate.getHours();
+        if (hour < 10) hour = `0${hour}`;
+        let min = timezoneDate.getMinutes();
+        if (min < 10) min = `0${min}`;
+        const ampm = hour >= 12 ? 'PM ' : 'AM';
+        return `${date}, ${hour}:${min} ${ampm}`;
     }
 
     const compileData = (data) => {
@@ -24,7 +35,6 @@ export default function FetchApi() {
             wind: data.wind.speed,
             timezone: data.timezone,
         };
-        console.log(getCurrentTimeInTimezone(choosenData.timezone / 3600));
         return choosenData;
     };
 
@@ -38,6 +48,7 @@ export default function FetchApi() {
     }
 
     return {
+        getCurrentTimeInTimezone,
         getWeather,
         compileData,
     };
