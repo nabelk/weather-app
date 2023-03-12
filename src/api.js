@@ -1,6 +1,10 @@
 import { format } from 'date-fns';
 
 export default function FetchApi() {
+    const tempFahrCel = {};
+
+    // Get current time/date using timezone data
+
     function getCurrentTimeInTimezone(timezoneOffset) {
         const now = new Date();
         const utcTimestamp = now.getTime() + now.getTimezoneOffset() * 60000;
@@ -22,6 +26,23 @@ export default function FetchApi() {
         return `${date}, ${hour}:${min} ${ampm}`;
     }
 
+    // Store fahr/cels temperature into object
+
+    const storeTemp = (tempdata) => {
+        console.table(tempdata);
+        tempFahrCel.cels = {
+            temp: Math.round(tempdata.main.temp),
+            feelslike: Math.round(tempdata.main.feels_like),
+        };
+        tempFahrCel.fahr = {
+            temp: Math.round((tempdata.main.temp * 9) / 5 + 32),
+            feelslike: Math.round((tempdata.main.feels_like * 9) / 5 + 32),
+        };
+        console.table(tempFahrCel);
+    };
+
+    // Process required JSON data
+
     const compileData = (data) => {
         const choosenData = {
             name: data.name,
@@ -35,8 +56,11 @@ export default function FetchApi() {
             wind: data.wind.speed,
             timezone: data.timezone,
         };
+        storeTemp({ main: choosenData.main });
         return choosenData;
     };
+
+    // Fetch API
 
     async function getWeather(place) {
         const response = await fetch(
@@ -48,6 +72,7 @@ export default function FetchApi() {
     }
 
     return {
+        tempFahrCel,
         getCurrentTimeInTimezone,
         getWeather,
         compileData,
