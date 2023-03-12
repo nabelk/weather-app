@@ -4,10 +4,11 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="toggle-switchy.css" />
         <title>Weather</title>
     </head>
     <body>
-        <div class="weather-info"></div>
         <div class="form">
             <form action="">
                 <input type="search" name="search" /><input
@@ -15,7 +16,15 @@
                     value="Search"
                 />
             </form>
+
+            <label for="checkTemp" class="toggle-switchy" data-style="rounded">
+                <input checked type="checkbox" id="checkTemp" />
+                <span class="toggle">
+                    <span class="switch"></span>
+                </span>
+            </label>
         </div>
+        <div class="weather-info"></div>
         <script src="main.js"></script>
     </body>
 </html>
