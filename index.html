@@ -10,19 +10,25 @@
     </head>
     <body>
         <div class="form">
-            <form action="">
-                <input type="search" name="search" /><input
-                    type="submit"
-                    value="Search"
-                />
-            </form>
-
-            <label for="checkTemp" class="toggle-switchy" data-style="rounded">
+            <label
+                for="checkTemp"
+                class="toggle-switchy"
+                data-style="rounded"
+                data-size="lg"
+            >
                 <input checked type="checkbox" id="checkTemp" />
                 <span class="toggle">
                     <span class="switch"></span>
                 </span>
             </label>
+            <form action="">
+                <input
+                    type="search"
+                    name="search"
+                    placeholder="Search City or Country..."
+                />
+                <div></div>
+            </form>
         </div>
         <div class="weather-info"></div>
         <script src="main.js"></script>
