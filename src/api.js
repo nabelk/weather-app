@@ -29,7 +29,6 @@ export default function FetchApi() {
     // Store fahr/cels temperature into object
 
     const storeTemp = (tempdata) => {
-        console.table(tempdata);
         tempFahrCel.cels = {
             temp: Math.round(tempdata.main.temp),
             feelslike: Math.round(tempdata.main.feels_like),
@@ -38,7 +37,6 @@ export default function FetchApi() {
             temp: Math.round((tempdata.main.temp * 9) / 5 + 32),
             feelslike: Math.round((tempdata.main.feels_like * 9) / 5 + 32),
         };
-        console.table(tempFahrCel);
     };
 
     // Process required JSON data
@@ -55,6 +53,7 @@ export default function FetchApi() {
             weather: data.weather[0].description,
             wind: data.wind.speed,
             timezone: data.timezone,
+            icon: data.weather[0].icon,
         };
         storeTemp({ main: choosenData.main });
         return choosenData;

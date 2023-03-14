@@ -6,6 +6,13 @@ export default function DOM() {
     const weatherDiv = document.querySelector('.weather-info');
     const checkBoxTemp = document.querySelector('input#checkTemp');
 
+    function changeBgImg(type) {
+        document.body.style.backgroundImage = `url('../src/weather-img/${type.replaceAll(
+            ' ',
+            ''
+        )}.jpg')`;
+    }
+
     function changeTempFormat(event) {
         const tempDiv = document.querySelector('.weather-info div.temp');
         const feelslikeDiv = document.querySelector(
@@ -31,6 +38,7 @@ export default function DOM() {
     }
 
     function displayWeatherInfo(data) {
+        changeBgImg(data.weather);
         weatherDiv.textContent = '';
         const temp = checkBoxTemp.checked
             ? `${api.tempFahrCel.fahr.temp}°F`
@@ -38,19 +46,26 @@ export default function DOM() {
         const feelslike = checkBoxTemp.checked
             ? `${api.tempFahrCel.fahr.feelslike}°F`
             : `${api.tempFahrCel.cels.feelslike}°C`;
+        const imgDiv = document.createElement('div');
+        imgDiv.appendChild(
+            Object.assign(document.createElement('img'), {
+                src: `https://openweathermap.org/img/wn/${data.icon}.png`,
+            })
+        );
         weatherDiv.append(
-            Object.assign(document.createElement('h1'), {
-                textContent: `${data.name}, ${data.country}`,
-            }),
             Object.assign(document.createElement('div'), {
                 textContent: `${data.weather
                     .charAt(0)
                     .toUpperCase()}${data.weather.slice(1)}`,
             }),
+            Object.assign(document.createElement('h1'), {
+                textContent: `${data.name}, ${data.country}`,
+            }),
             Object.assign(document.createElement('div'), {
                 textContent: temp,
                 className: 'temp',
             }),
+            Object.assign(imgDiv),
             Object.assign(document.createElement('div'), {
                 textContent: `Feels like: ${feelslike}`,
                 className: 'feelslike',
@@ -73,11 +88,16 @@ export default function DOM() {
     }
 
     function searchWeather(event) {
+        event.target.lastElementChild.classList.add('loading');
         event.preventDefault();
-        api.getWeather(event.target.search.value)
-            .then(api.compileData)
-            .then(displayWeatherInfo)
-            .catch(() => form.appendChild(errorSpan()));
+        setTimeout(() => {
+            event.target.lastElementChild.classList.remove('loading');
+            api.getWeather(event.target.search.value)
+                .then(api.compileData)
+                .then(displayWeatherInfo)
+                .catch(() => form.appendChild(errorSpan()));
+            form.reset();
+        }, 1000);
     }
     form.addEventListener('submit', searchWeather);
 }
