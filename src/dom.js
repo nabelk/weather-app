@@ -7,7 +7,7 @@ export default function DOM() {
     const checkBoxTemp = document.querySelector('input#checkTemp');
 
     function changeBgImg(type) {
-        document.body.style.backgroundImage = `url('../src/weather-img/${type.replaceAll(
+        document.body.style.backgroundImage = `url('../dist/weather-img/${type.replaceAll(
             ' ',
             ''
         )}.jpg')`;
