@@ -87,17 +87,27 @@ export default function DOM() {
         return span;
     }
 
+    function tryAPi(value) {
+        api.getWeather(value)
+            .then(api.compileData)
+            .then(displayWeatherInfo)
+            .catch(() => form.appendChild(errorSpan()));
+    }
+
     function searchWeather(event) {
+        event.target.search.disabled = true;
         event.target.lastElementChild.classList.add('loading');
         event.preventDefault();
         setTimeout(() => {
             event.target.lastElementChild.classList.remove('loading');
-            api.getWeather(event.target.search.value)
-                .then(api.compileData)
-                .then(displayWeatherInfo)
-                .catch(() => form.appendChild(errorSpan()));
+            tryAPi(event.target.search.value);
+            setTimeout(() => {
+                event.target.search.disabled = false;
+            }, 1000);
             form.reset();
         }, 1000);
     }
     form.addEventListener('submit', searchWeather);
+
+    tryAPi('Malaysia');
 }
