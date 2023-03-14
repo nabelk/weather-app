@@ -10,7 +10,8 @@
     },
     "ignorePatterns": ["main.js"],
     "rules": {
-        "no-console": "off"
+        "no-console": "off",
+        "no-param-reassign": "off"
     },
     "extends": ["airbnb-base", "prettier"]
 }
