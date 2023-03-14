@@ -179,7 +179,7 @@ CORE STYLES ABOVE - NO TOUCHY
 }
 .toggle-switchy[data-size='lg'] > input + .toggle:before,
 .toggle-switchy[data-size='lg'] > input + .toggle:after {
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 .toggle-switchy[data-size='lg'] > input:not(:checked) + .toggle > .switch {
     right: calc(100% - 35px);
